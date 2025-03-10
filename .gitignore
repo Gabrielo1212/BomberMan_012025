@@ -1,6 +1,7 @@
 # 🚀 Ignorar archivos y carpetas innecesarias en Unreal Engine 5
 
 # 🚫 Carpetas de compilación y caché
+Engine/
 Binaries/
 Build/
 DerivedDataCache/
@@ -11,6 +12,8 @@ Saved/
 .vs/
 *.VC.db
 *.sln
+*.xcodeproj
+*.xcworkspace
 .idea/
 .vscode/
 .DS_Store
