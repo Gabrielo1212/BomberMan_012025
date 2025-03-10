@@ -13,7 +13,21 @@ GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red,TEXT("Actor Apareciendo")
 //Crear la variable de posicion
 FTransform SpawnLocation;
 //Posicion inicial
-GetWorld()->SpawnActor<APower_Up>(APower_Up::StaticClass(),
-    SpawnLocation);
+GetWorld()->SpawnActor<APower_Up>(APower_Up::StaticClass(), SpawnLocation);
+//Cambiar el valor de la variable
+SpawnedActor = GetWorld()->SpawnActor<APower_Up>(APower_Up::StaticClass(), SpawnLocation);
+//Crear el temporizador
+FTimerHandle Timer;
+//Configurar el temporizador
+GetWorldTimerManager().SetTimer(Timer, this,&APrimerModo::DestroyActorFunction, 10);
 }
-
+//Metodo para destruir el actor
+void APrimerModo::DestroyActorFunction()
+{
+//Verificar que el actor exista
+if (SpawnedActor != nullptr)
+{
+}
+//Destruir el actor
+SpawnedActor->Destroy();
+}

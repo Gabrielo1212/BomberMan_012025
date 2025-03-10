@@ -14,7 +14,8 @@ class BOMBERMAN_012025_API APower_Up : public AActor
 public:	
 	// Sets default values for this actor's properties
 	APower_Up();
-
+    UPROPERTY()
+    UStaticMeshComponent* Mesh;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

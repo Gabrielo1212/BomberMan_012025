@@ -8,6 +8,9 @@ APower_Up::APower_Up()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+    // Crear el componente de mesh
+    Mesh =CreateDefaultSubobject<UStaticMeshComponent>("BaseMeshComponent");
+    
 
 }
 
@@ -15,7 +18,7 @@ APower_Up::APower_Up()
 void APower_Up::BeginPlay()
 {
 	Super::BeginPlay();
-	
+    SetLifeSpan(20);
 }
 
 // Called every frame
