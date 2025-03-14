@@ -48,3 +48,16 @@ void ABloqueConcreto::SpawnBloquesSeguidos(int numBloques, FVector posicionInici
         ABloqueConcreto* bloque = GetWorld()->SpawnActor<ABloqueConcreto>(ABloqueConcreto::StaticClass(), posicion, FRotator(0, 0, 0));
     }
 }
+
+void ABloqueConcreto::SpawnBloquesPisos(int numBloquesX,int numBloqueY, FVector posicionInicial, FVector direccion)
+{
+        for (int i = 0; i < numBloquesX; i++) {
+            for(int j=0;j<numBloqueY;j++){
+                FVector direccionY = FVector(0, 100, 0);
+                FVector posicion = posicionInicial + direccion * i + direccionY * j;
+                ABloqueConcreto* bloque = GetWorld()->SpawnActor<ABloqueConcreto>(ABloqueConcreto::StaticClass(), posicion, FRotator(0, 0, 90));
+            }
+        }
+    //ABloqueConcreto* bloque = GetWorld()->SpawnActor<ABloqueConcreto>(ABloqueConcreto::StaticClass(), posicion, FRotator(0, 0, 0));
+    //bloque->MallaBloqueConcreto->SetRelativeScale3D(FVector(30.0f, 35.0f, 1.0f));
+}
