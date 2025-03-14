@@ -12,7 +12,7 @@ APower_Up::APower_Up()
     Mesh =CreateDefaultSubobject<UStaticMeshComponent>("BaseMeshComponent");
     // Establecer la mesh
     auto MeshAsset = ConstructorHelpers::FObjectFinder<UStaticMesh>(TEXT("StaticMesh'/Engine/EngineMeshes/Sphere.Sphere\'"));
-    UMaterialInterface* Material = ConstructorHelpers::FObjectFinder<UMaterialInterface>(TEXT("/Game/StarterContent/Materials/M_Glass")).Object;t
+    UMaterialInterface* Material = ConstructorHelpers::FObjectFinder<UMaterialInterface>(TEXT("/Game/StarterContent/Materials/M_Glass")).Object;
     if (Material != nullptr)
     {
         Mesh->SetMaterial(0, Material);

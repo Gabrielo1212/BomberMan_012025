@@ -13,18 +13,9 @@ UCLASS()
 class BOMBERMAN_012025_API APrimerEstadoDeJuego : public AGameState
 {
     GENERATED_BODY()
-    public:
-    //
+public:
     APrimerEstadoDeJuego();
-    //
-    UFUNCTION()
-    void SetScore(uint32 NewScore);
-    //
-    UFUNCTION()
-    int32 GetScore();
     
-    private:
+private:
     //
-    UPROPERTY()
-    int32 CurrentScore;
 };

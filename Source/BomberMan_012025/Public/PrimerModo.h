@@ -20,6 +20,7 @@ class BOMBERMAN_012025_API APrimerModo : public AGameMode
     UPROPERTY()
     APower_Up* SpawnedActor;
     //Funcion para destruir al actor
-    UFUNCTION()
-    void DestroyActorFunction();
+    //UFUNCTION()
+    //void DestroyActorFunction();
+    
 };
