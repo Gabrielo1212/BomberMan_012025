@@ -21,6 +21,8 @@ public:
     ABloqueLadrillo();
     UFUNCTION()
         void SpawnBloquesSeguidos(int cantidad, FVector posicionInicial, FVector distanciaEntreBloques);
+    UFUNCTION()
+        void SpawnBloquesMatriz(int numBloquesX,int numBloqueY, FVector posicionInicial,FVector distanciaX,FVector distanciaY);
 
 protected:
     // Called when the game starts or when spawned

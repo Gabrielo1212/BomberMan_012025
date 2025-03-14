@@ -56,3 +56,12 @@ void ABloqueLadrillo::SpawnBloquesSeguidos(int cantidad, FVector posicionInicial
         ABloqueLadrillo* bloque = GetWorld()->SpawnActor<ABloqueLadrillo>(ABloqueLadrillo::StaticClass(), posicion, FRotator(0, 0, 0));
     }
 }
+void ABloqueLadrillo::SpawnBloquesMatriz(int numBloquesX,int numBloqueY, FVector posicionInicial,FVector distanciaX,FVector distanciaY)
+{
+        for (int i = 0; i < numBloquesX; i++) {
+            for(int j=0;j<numBloqueY;j++){
+                FVector posicion = posicionInicial + distanciaX * i + distanciaY * j;
+                ABloqueLadrillo* bloque = GetWorld()->SpawnActor<ABloqueLadrillo>(ABloqueLadrillo::StaticClass(), posicion, FRotator(0, 0, 0));
+            }
+        }
+}

@@ -15,7 +15,7 @@ public:
     UFUNCTION()
         void SpawnBloquesSeguidos(int cantidad, FVector posicionInicial, FVector distanciaEntreBloques);
     UFUNCTION()
-        void SpawnBloquesPisos(int numBloquesX,int numBloqueY, FVector posicionInicial, FVector direccion);
+        void SpawnBloquesPisos(int numBloquesX,int numBloqueY, FVector posicionInicial);
 protected:
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
