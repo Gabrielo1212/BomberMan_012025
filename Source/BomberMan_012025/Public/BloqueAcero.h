@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "BloqueAcero.generated.h"
@@ -15,7 +16,7 @@ class BOMBERMAN_012025_API ABloqueAcero : public AActor
     GENERATED_BODY()
 
     UStaticMeshComponent* MallaBloqueAcero;
-
+    
     
 public:
     // Sets default values for this actor's properties

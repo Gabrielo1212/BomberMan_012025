@@ -38,14 +38,11 @@ ABloqueAcero::ABloqueAcero()
 void ABloqueAcero::BeginPlay()
 {
     Super::BeginPlay();
-    
+
 }
 
 // Called every frame
 void ABloqueAcero::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
-
-
-
 }

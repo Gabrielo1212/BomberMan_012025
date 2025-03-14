@@ -29,12 +29,13 @@ void APrimerModo::BeginPlay()
     //ABloqueMadera* bloque01 = GetWorld()->SpawnActor<ABloqueMadera>(ABloqueMadera::StaticClass(), FVector(934.0f, 1370.0f, 100.0f), FRotator(0.0f, 0.0f, 0.0f));
     //ABloqueMadera* bloque02 = GetWorld()->SpawnActor<ABloqueMadera>(ABloqueMadera::StaticClass(), FVector(734.0f, 1370.0f, 50.0f), FRotator(0.0f, 0.0f, 0.0f));
     // Crear objetos para usar los metodos
-    ABloqueMadera* bloque = GetWorld()->SpawnActor<ABloqueMadera>(ABloqueMadera::StaticClass(), FVector(350.0f, 6750.0f, 0), FRotator(0.0f, 0.0f, 0));
+    ABloqueMadera* bloque = GetWorld()->SpawnActor<ABloqueMadera>(ABloqueMadera::StaticClass(), FVector(300.0f, 6700.0f, 0), FRotator(0.0f, 0.0f, 0));
     ABloqueConcreto* bloque2 = GetWorld()->SpawnActor<ABloqueConcreto>(ABloqueConcreto::StaticClass(),FVector(100.0f, 6700.0f, 0.0f), FRotator(0.0f, 0.0f, 0.0f));
     ABloqueLadrillo* bloque3 = GetWorld()->SpawnActor<ABloqueLadrillo>(ABloqueLadrillo::StaticClass(),FVector(300.0f, 6500.0f, 0.0f), FRotator(0.0f, 0.0f, 0.0f));
-    // Llama al método SpawnBloquesSeguidos desde el objeto bloque
-    bloque->SpawnBloquesSeguidos(10, FVector(350, 250, 0), FVector(100, 0, 0));
-    bloque->SpawnBloquesSeguidos(10, FVector(250, 350, 0), FVector(0, 100, 0));
+    ABloqueAcero* bloque4 = GetWorld()->SpawnActor<ABloqueAcero>(ABloqueAcero::StaticClass(),FVector(100.0f, 6500.0f, 0.0f), FRotator(0.0f, 0.0f, 0.0f));
+    //Llama al método SpawnBloquesMatriz desde el objeto bloque
+    bloque->ABloqueMadera::SpawnBloquesMatriz(27, 16, FVector(200.0f, 200.0f, 0.0f), FVector(100, 0, 0), FVector(0, 200, 0));
+    bloque->ABloqueMadera::SpawnBloquesMatriz(14, 15, FVector(200.0f, 300.0f, 0.0f), FVector(200, 0, 0), FVector(0, 200, 0));
     // Llama al método SpawnBloquesPisos desde el objeto bloque
     bloque2->ABloqueConcreto::SpawnBloquesPisos(30, 35, FVector(0.0f, 0.0f, 0.0f));
     //Muro Eje X Izquierda
