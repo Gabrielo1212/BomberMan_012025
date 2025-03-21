@@ -21,6 +21,8 @@ public:
         void SpawnBloquesSeguidos(int cantidad, FVector posicionInicial, FVector distanciaEntreBloques);
     UFUNCTION()
         void SpawnBloquesMatriz(int numBloquesX,int numBloqueY, FVector posicionInicial,FVector distanciaX,FVector distanciaY);
+    UFUNCTION()
+    void SpawnBloque(FVector posicion);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

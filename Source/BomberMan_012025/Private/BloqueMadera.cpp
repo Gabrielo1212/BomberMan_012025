@@ -44,6 +44,11 @@ void ABloqueMadera::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
+
+void ABloqueMadera::SpawnBloque(FVector posicion) {
+    ABloqueMadera* bloque = GetWorld()->SpawnActor<ABloqueMadera>(ABloqueMadera::StaticClass(), posicion, FRotator(0, 0, 0));
+}
+
 void ABloqueMadera::SpawnBloquesSeguidos(int cantidad, FVector posicionInicial, FVector distanciaEntreBloques)
 {
     for (int i = 0; i < cantidad; i++)

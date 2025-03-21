@@ -49,6 +49,10 @@ void APrimerModo::BeginPlay()
     //Patron Mundo
     bloque3->ABloqueLadrillo::SpawnBloquesMatriz(13, 15, FVector(300.0f, 300.0f, 0.0f),FVector(200, 0, 0),FVector(0, 200, 0));
     
+    //Tarea Clase Matriz Mapa
+    //Uso del metodo para crear el Mapa
+    APrimerModo::SpawnBloques(FVector(-800.0f, 0.0f, 0.0f), FVector(0.0f, 0.0f, 0.0f), aMapaBloques);
+    bloque2->ABloqueConcreto::SpawnBloquesPisos(6, 8, FVector(-800.0f, 0.0f, 0.0f));
     
     /*
      //Metodo para destruir el actor
@@ -62,4 +66,26 @@ void APrimerModo::BeginPlay()
      SpawnedActor->Destroy();
      }
      */
+}
+
+void APrimerModo::SpawnBloques(FVector PosicionInicialX,FVector PosicionInicialY,TArray<TArray<int>>& MatrizMapa){
+    for(int i=0;i<MatrizMapa.Num();i++){
+        for(int j=0;j<MatrizMapa[i].Num();j++){
+            FVector Posicion = PosicionInicialX + FVector(100.0f,0.0f,0.0f) * (MatrizMapa.Num()-1-i) + PosicionInicialY + FVector(0.0f,100.0f,0.0f)*j;
+            if(MatrizMapa[i][j]==0){
+            }
+            if(MatrizMapa[i][j]==1){
+                ABloqueMadera* bloque = GetWorld()->SpawnActor<ABloqueMadera>(ABloqueMadera::StaticClass(), FVector(Posicion), FRotator(0.0f, 0.0f, 0));
+            }
+            if(MatrizMapa[i][j]==2){
+                ABloqueLadrillo* bloque = GetWorld()->SpawnActor<ABloqueLadrillo>(ABloqueLadrillo::StaticClass(), FVector(Posicion), FRotator(0.0f, 0.0f, 0));
+            }
+            if(MatrizMapa[i][j]==3){
+                ABloqueConcreto* bloque = GetWorld()->SpawnActor<ABloqueConcreto>(ABloqueConcreto::StaticClass(), FVector(Posicion), FRotator(0.0f, 0.0f, 0));
+            }
+            if(MatrizMapa[i][j]==4){
+                ABloqueAcero* bloque = GetWorld()->SpawnActor<ABloqueAcero>(ABloqueAcero::StaticClass(), FVector(Posicion), FRotator(0.0f, 0.0f, 0));
+            }
+        }
+    }
 }
