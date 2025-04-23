@@ -3,33 +3,24 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "Bloque.h"
 #include "BloqueLadrillo.generated.h"
 
-class UStaticMeshComponent;
-
+/**
+ * 
+ */
 UCLASS()
-class BOMBERMAN_012025_API ABloqueLadrillo : public AActor
+class BOMBERMAN_012025_API ABloqueLadrillo : public ABloque
 {
-    GENERATED_BODY()
-
-    UStaticMeshComponent* MallaBloqueLadrillo;
-
-    
+	GENERATED_BODY()
 public:
-    // Sets default values for this actor's properties
-    ABloqueLadrillo();
-    UFUNCTION()
-        void SpawnBloquesSeguidos(int cantidad, FVector posicionInicial, FVector distanciaEntreBloques);
-    UFUNCTION()
-        void SpawnBloquesMatriz(int numBloquesX,int numBloqueY, FVector posicionInicial,FVector distanciaX,FVector distanciaY);
+	ABloqueLadrillo();
 
+	//virtual void Tick(float DeltaTime) override;
+	
 protected:
-    // Called when the game starts or when spawned
-    virtual void BeginPlay() override;
+	
+	virtual void BeginPlay() override;
 
-public:
-    // Called every frame
-    virtual void Tick(float DeltaTime) override;
 
 };

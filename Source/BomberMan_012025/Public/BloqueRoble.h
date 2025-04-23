@@ -4,19 +4,23 @@
 
 #include "CoreMinimal.h"
 #include "Bloque.h"
-#include "BloqueAcero.generated.h"
+#include "BloqueRoble.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class BOMBERMAN_012025_API ABloqueAcero : public ABloque
+class BOMBERMAN_012025_API ABloqueRoble : public ABloque
 {
 	GENERATED_BODY()
+
 public:
-	ABloqueAcero();
+	ABloqueRoble();
+
 	//virtual void Tick(float DeltaTime) override;
+
 protected:
-	// Called when the game starts or when spawned
+
 	virtual void BeginPlay() override;
+
 };

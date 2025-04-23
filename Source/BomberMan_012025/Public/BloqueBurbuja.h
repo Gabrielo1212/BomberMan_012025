@@ -4,16 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "Bloque.h"
-#include "BloqueMadera.generated.h"
+#include "BloqueBurbuja.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class BOMBERMAN_012025_API ABloqueMadera : public ABloque
+class BOMBERMAN_012025_API ABloqueBurbuja : public ABloque
 {
 	GENERATED_BODY()
-	
 public:
-	ABloqueMadera();
+	ABloqueBurbuja();
 };

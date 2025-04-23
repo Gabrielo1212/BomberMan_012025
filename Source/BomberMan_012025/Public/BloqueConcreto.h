@@ -1,30 +1,17 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "Bloque.h"
 #include "BloqueConcreto.generated.h"
 
+/**
+ * 
+ */
 UCLASS()
-class BOMBERMAN_012025_API ABloqueConcreto : public AActor
+class BOMBERMAN_012025_API ABloqueConcreto : public ABloque
 {
-    GENERATED_BODY()
-
-public:
-    // Sets default values for this actor's properties
-    ABloqueConcreto();
-    UFUNCTION()
-        void SpawnBloquesSeguidos(int cantidad, FVector posicionInicial, FVector distanciaEntreBloques);
-    UFUNCTION()
-        void SpawnBloquesPisos(int numBloquesX,int numBloqueY, FVector posicionInicial);
-protected:
-    // Called when the game starts or when spawned
-    virtual void BeginPlay() override;
-
-public:
-    // Called every frame
-    virtual void Tick(float DeltaTime) override;
-
-private:
-    UPROPERTY()
-    UStaticMeshComponent* MallaBloqueConcreto;
+	GENERATED_BODY()
+	
 };

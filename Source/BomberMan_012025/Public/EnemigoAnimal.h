@@ -3,17 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Bloque.h"
-#include "BloqueMadera.generated.h"
+#include "Enemigo.h"
+#include "EnemigoAnimal.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class BOMBERMAN_012025_API ABloqueMadera : public ABloque
+class BOMBERMAN_012025_API AEnemigoAnimal : public AEnemigo
 {
 	GENERATED_BODY()
 	
-public:
-	ABloqueMadera();
 };
