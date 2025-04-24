@@ -3,6 +3,7 @@
 #include "BomberMan_012025GameMode.h"
 #include "BomberMan_012025Character.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Moneda.h"
 #include "Bloque.h"
 #include "BloqueBurbuja.h"
 #include "BloqueAcero.h"
@@ -81,7 +82,7 @@ void ABomberMan_012025GameMode::BeginPlay()
             Jugador->SetActorLocation(PosDestino + FVector(0.0f, 0.0f, 250.0f)); // Eleva al jugador un poco
         }
     }
-*/
+     */
     AsignarMovimientosAleatorios();
 
 }
@@ -90,6 +91,8 @@ void ABomberMan_012025GameMode::BeginPlay()
 void ABomberMan_012025GameMode::SpawnBloque(FVector posicionBloque, int32 tipoBloque)
 {
     ABloque* BloqueGenerado = nullptr;
+    AEnemigo* EnemigoGenerado = nullptr;
+    AMoneda* MonedaGenerada = nullptr;
 
     // Elegir tipo de bloque basado en el valor
     if (tipoBloque == 10)
@@ -138,15 +141,19 @@ void ABomberMan_012025GameMode::SpawnBloque(FVector posicionBloque, int32 tipoBl
         if (probabilidad < 0.1f) // 10% de probabilidad de spawnear
         {
             float probabilidad2 = FMath::RandRange(0.0f, 1.0f);
+            PosicionesVacias.Add(posicionBloque);
             if (probabilidad2 < 0.25f)
-                GetWorld()->SpawnActor<AEnemigoAereo>(AEnemigoAereo::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
+                EnemigoGenerado = GetWorld()->SpawnActor<AEnemigoAereo>(AEnemigoAereo::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
             else if (probabilidad2 < 0.5f)
-                GetWorld()->SpawnActor<AEnemigoTerrestre>(AEnemigoTerrestre::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
+                EnemigoGenerado = GetWorld()->SpawnActor<AEnemigoTerrestre>(AEnemigoTerrestre::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
             else if (probabilidad2 < 0.75f)
-                GetWorld()->SpawnActor<AEnemigoAcuatico>(AEnemigoAcuatico::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
+                EnemigoGenerado = GetWorld()->SpawnActor<AEnemigoAcuatico>(AEnemigoAcuatico::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
             else
-                GetWorld()->SpawnActor<AEnemigoSubterraneo>(AEnemigoSubterraneo::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
+                EnemigoGenerado = GetWorld()->SpawnActor<AEnemigoSubterraneo>(AEnemigoSubterraneo::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
+        }else if(probabilidad > 0.11f && probabilidad < 0.12f){
+            MonedaGenerada = GetWorld()->SpawnActor<AMoneda>(AMoneda::StaticClass(), posicionBloque + FVector(0.0f,0.0f,100.0f), FRotator(0.0f, 0.0f, 0.0f));
         }
+        PosicionesVacias.Add(posicionBloque);
     }
 
     // Agregar el bloque al TArray si fue generado
@@ -159,6 +166,10 @@ void ABomberMan_012025GameMode::SpawnBloque(FVector posicionBloque, int32 tipoBl
 
         // Agregar el bloque al array aBloques
         aBloques.Add(BloqueGenerado);
+    }
+    if(EnemigoGenerado)
+    {
+        aEnemigos.Add(EnemigoGenerado);
     }
 }
 
@@ -184,7 +195,7 @@ void ABomberMan_012025GameMode::AsignarMovimientosAleatorios()
     }
 
     // Función para asignar movimiento a 2 bloques aleatorios de un tipo
-    auto AsignarMovimiento = [](TArray<ABloque*>& Lista, int Tipo, int DirX, int DirY, int DirZ, float Velocidad = 100.0f)
+    auto AsignarMovimiento = [](TArray<ABloque*>& Lista, int DirX, int DirY, int DirZ, float Velocidad = 100.0f)
         {
             if (Lista.Num() >= 2)
             {
@@ -202,25 +213,24 @@ void ABomberMan_012025GameMode::AsignarMovimientosAleatorios()
                 for (int32 i = 0; i < 2 && i < Lista.Num(); i++)
                 {
                     ABloque* Bloque = Lista[i];
-                    Bloque->TipoMovimiento = Tipo;
                     Bloque->DireccionMovimientoX = DirX;
                     Bloque->DireccionMovimientoY = DirY;
                     Bloque->DireccionMovimientoZ = DirZ;
-                    Bloque->FloatSpeed = Velocidad;
-                    Bloque->bPuedeMoverse = true;
+                    Bloque->Velocidad = Velocidad;
+                    Bloque->PuedeMoverse = true;
                 }
             }
         };
 
     // Asignar movimientos específicos para cada tipo de bloque
-    AsignarMovimiento(Ladrillos, 0, 1, 0, 0, 80.0f);    // Ladrillo: Eje X, Velocidad 80
-    AsignarMovimiento(Maderas, 1, 0, 1, 0, 70.0f);      // Madera: Eje Y, Velocidad 70
-    AsignarMovimiento(Aceros, 2, 0, 0, 1, 50.0f);       // Acero: Eje Z, Velocidad 50
-    AsignarMovimiento(Concretos, 0, -1, 0, 0, 60.0f);   // Concreto: Eje -X, Velocidad 60
-    AsignarMovimiento(Pastos, 1, 0, -1, 0, 120.0f);     // Pasto: Eje -Y, Velocidad 120
-    AsignarMovimiento(Arenas, 2, 0, 0, -1, 130.0f);     // Arena: Eje -Z, Velocidad 130
-    AsignarMovimiento(Gravas, 0, 1, 1, 0, 75.0f);       // Grava: Diagonal X+Y, Velocidad 75
-    AsignarMovimiento(Cobres, 1, 0, 1, 1, 65.0f);       // Cobre: Diagonal Y+Z, Velocidad 65
-    AsignarMovimiento(Robles, 2, 1, 0, 1, 85.0f);       // Roble: Diagonal X+Z, Velocidad 85
-    AsignarMovimiento(Oros, 0, -1, -1, 0, 100.0f);      // Oro: Diagonal -X-Y, Velocidad 100
+    AsignarMovimiento(Ladrillos, 1, 0, 0, 80.0f);    // Ladrillo: Eje X, Velocidad 80
+    AsignarMovimiento(Maderas, 0, 1, 0, 70.0f);      // Madera: Eje Y, Velocidad 70
+    AsignarMovimiento(Aceros, 0, 0, 1, 50.0f);       // Acero: Eje Z, Velocidad 50
+    AsignarMovimiento(Concretos, -1, 0, 0, 60.0f);   // Concreto: Eje -X, Velocidad 60
+    AsignarMovimiento(Pastos, 0, -1, 0, 120.0f);     // Pasto: Eje -Y, Velocidad 120
+    AsignarMovimiento(Arenas, 0, 0, -1, 130.0f);     // Arena: Eje -Z, Velocidad 130
+    AsignarMovimiento(Gravas, 1, 1, 0, 75.0f);       // Grava: Diagonal X+Y, Velocidad 75
+    AsignarMovimiento(Cobres, 0, 1, 1, 65.0f);       // Cobre: Diagonal Y+Z, Velocidad 65
+    AsignarMovimiento(Robles, 1, 0, 1, 85.0f);       // Roble: Diagonal X+Z, Velocidad 85
+    AsignarMovimiento(Oros, -1, -1, 0, 100.0f);      // Oro: Diagonal -X-Y, Velocidad 100
 }
