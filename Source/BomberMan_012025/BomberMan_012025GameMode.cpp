@@ -53,7 +53,7 @@ void ABomberMan_012025GameMode::BeginPlay()
         }
     }
     
-    /*
+    //Declarar el array para las maderas del borde
     TArray<ABloqueMadera*> MaderasBorde;
     // Posicionar al jugador sobre un bloque de madera cercano al borde
     
@@ -69,6 +69,19 @@ void ABomberMan_012025GameMode::BeginPlay()
             {
                 MaderasBorde.Add(Madera);
             }
+            /*
+            //Verificar cuantos bloques tiene al lado
+            for(ABloqueMadera* BloqueMadera :MaderasBorde){
+                FVector Posicion = BloqueMadera->GetActorLocation();
+                for(int i = -1; i < 2; i++){
+                    for(int j = -1; j < 2; j++){
+                        if(Posicion+FVector()==Pos){
+                            
+                        }
+                    }
+                }
+            }
+             */
         }
     }
     
@@ -82,7 +95,8 @@ void ABomberMan_012025GameMode::BeginPlay()
             Jugador->SetActorLocation(PosDestino + FVector(0.0f, 0.0f, 250.0f)); // Eleva al jugador un poco
         }
     }
-     */
+    
+    
     AsignarMovimientosAleatorios();
 
 }
@@ -142,18 +156,24 @@ void ABomberMan_012025GameMode::SpawnBloque(FVector posicionBloque, int32 tipoBl
         {
             float probabilidad2 = FMath::RandRange(0.0f, 1.0f);
             PosicionesVacias.Add(posicionBloque);
-            if (probabilidad2 < 0.25f)
+            if (probabilidad2 < 0.25f){
                 EnemigoGenerado = GetWorld()->SpawnActor<AEnemigoAereo>(AEnemigoAereo::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
-            else if (probabilidad2 < 0.5f)
+                PosicionesVacias.Add(posicionBloque);
+            }else if (probabilidad2 < 0.5f){
                 EnemigoGenerado = GetWorld()->SpawnActor<AEnemigoTerrestre>(AEnemigoTerrestre::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
-            else if (probabilidad2 < 0.75f)
+                PosicionesVacias.Add(posicionBloque);
+            }else if (probabilidad2 < 0.75f){
                 EnemigoGenerado = GetWorld()->SpawnActor<AEnemigoAcuatico>(AEnemigoAcuatico::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
-            else
+                PosicionesVacias.Add(posicionBloque);
+            }else{
                 EnemigoGenerado = GetWorld()->SpawnActor<AEnemigoSubterraneo>(AEnemigoSubterraneo::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
+                PosicionesVacias.Add(posicionBloque);
+            }
         }else if(probabilidad > 0.11f && probabilidad < 0.12f){
             MonedaGenerada = GetWorld()->SpawnActor<AMoneda>(AMoneda::StaticClass(), posicionBloque + FVector(0.0f,0.0f,100.0f), FRotator(0.0f, 0.0f, 0.0f));
+        }else{
+            PosicionesVacias.Add(posicionBloque);
         }
-        PosicionesVacias.Add(posicionBloque);
     }
 
     // Agregar el bloque al TArray si fue generado

@@ -30,6 +30,8 @@ public:
     
     //Posicion para cambiar
     FVector posicionNueva;
+    FVector primeraPosicion;
+    int Saltos;
     
     // Componente de malla estatica
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Componentes")

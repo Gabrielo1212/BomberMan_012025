@@ -43,6 +43,8 @@ public:
     void SpawnBloque(FVector posicion, int32 tipoBloque);
     void AsignarMovimientosAleatorios();
 
+    //Declara un mapa de bloques como un array bidimensional
+    TArray<TArray<int32>> aMapaBloquesAleatorios;
     
     // Declarar un mapa de bloques como un array bidimensional
     TArray<TArray<int32>> aMapaBloques ={
