@@ -1,13 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BloqueGrava.h"
+#include "Bloques/BloqueOro.h"
 
-ABloqueGrava::ABloqueGrava()
+ABloqueOro::ABloqueOro()
 {
     if (MallaBloque)
     {
-        static ConstructorHelpers::FObjectFinder<UMaterial> MaterialBase(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Ground_Gravel.M_Ground_Gravel'"));
+        static ConstructorHelpers::FObjectFinder<UMaterial> MaterialBase(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Metal_Gold.M_Metal_Gold'"));
         if (MaterialBase.Succeeded())
         {
             MallaBloque->SetMaterial(0, MaterialBase.Object); // Asignar el material al slot 0
@@ -20,16 +20,16 @@ ABloqueGrava::ABloqueGrava()
 //	Super::Tick(DeltaTime);
 //}
 
-void ABloqueGrava::BeginPlay()
+void ABloqueOro::BeginPlay()
 {
     Super::BeginPlay();
 
 }
-void ABloqueGrava::ActivarMovimiento_Implementation(){
+
+void ABloqueOro::ActivarMovimiento_Implementation(){
     if(PuedeMoverse==false){
         PuedeMoverse=true;
     }else{
         PuedeMoverse=false;
     }
 }
-

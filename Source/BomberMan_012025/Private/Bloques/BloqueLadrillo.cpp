@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BloqueLadrillo.h"
+#include "Bloques/BloqueLadrillo.h"
 //#include "Components/StaticMeshComponent.h"
 //#include "Materials/MaterialInstanceDynamic.h"
 //#include "Engine/Texture2D.h"

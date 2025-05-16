@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BloqueConcreto.h"
+#include "Bloques/BloqueConcreto.h"
 
 void ABloqueConcreto::ActivarMovimiento_Implementation(){
     if(PuedeMoverse==false){

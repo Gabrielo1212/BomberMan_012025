@@ -10,7 +10,8 @@
 class ABloque;
 class AEnemigo;
 class AMoneda;
-class AFactory_Bloque;
+class AFabricaDeBloques;
+class AFabricaDeEnemigos;
 
 UCLASS(minimalapi)
 class ABomberMan_012025GameMode : public AGameModeBase
@@ -39,17 +40,19 @@ public:
     //Declarar un array de Monedas
     TArray<AMoneda*> aMonedas;
     
-    //Declarar un puntero a la clase de la fabrica
-    AFactory_Bloque* MiFabricaDeBloques;
-    //Declarar clase de Fabrica
-//    TSubclassOf<AFactory_Bloque> ClaseDeFabricaDeBloques;
-    //Poner la Fabrica de Bloques
-//    ClaseDeFabricaDeBloques = AFactory_Bloque::StaticClass();
+    //Declarar un puntero a la clase de la fabrica bloques
+    AFabricaDeBloques* MiFabricaDeBloques;
+    
+    //Declarar un puntero a la clase de la fabrica enemigos
+    AFabricaDeEnemigos* MiFabricaDeEnemigos;
 
     
     //Declarar las funciones
     void SpawnBloque(FVector posicion, int32 tipoBloque);
     void AsignarMovimientosAleatorios();
+    
+    //De
+    TArray<ABloque*> MaderasBorde;
 
     //Declara un mapa de bloques como un array bidimensional
     TArray<TArray<int32>> aMapaBloquesAleatorios;
@@ -108,4 +111,3 @@ public:
     {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}
     };
 };
-

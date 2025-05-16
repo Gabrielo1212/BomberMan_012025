@@ -1,13 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BloqueArena.h"
+#include "Bloques/BloqueCobre.h"
 
-ABloqueArena::ABloqueArena()
+ABloqueCobre::ABloqueCobre()
 {
     if (MallaBloque)
     {
-        static ConstructorHelpers::FObjectFinder<UMaterial> MaterialBase(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Rock_Sandstone.M_Rock_Sandstone'"));
+        static ConstructorHelpers::FObjectFinder<UMaterial> MaterialBase(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Metal_Copper.M_Metal_Copper'"));
         if (MaterialBase.Succeeded())
         {
             MallaBloque->SetMaterial(0, MaterialBase.Object); // Asignar el material al slot 0
@@ -20,17 +20,16 @@ ABloqueArena::ABloqueArena()
 //	Super::Tick(DeltaTime);
 //}
 
-void ABloqueArena::BeginPlay()
+void ABloqueCobre::BeginPlay()
 {
     Super::BeginPlay();
 
 }
 
-void ABloqueArena::ActivarMovimiento_Implementation(){
+void ABloqueCobre::ActivarMovimiento_Implementation(){
     if(PuedeMoverse==false){
         PuedeMoverse=true;
     }else{
         PuedeMoverse=false;
     }
 }
-

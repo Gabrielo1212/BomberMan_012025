@@ -6,15 +6,11 @@
 #include "GameFramework/Character.h"
 #include "Enemigo.generated.h"
 
-UCLASS()
+UCLASS(Abstract)
 class BOMBERMAN_012025_API AEnemigo : public ACharacter
 {
 	GENERATED_BODY()
     
-    FVector CurrentDirection;
-
-    UFUNCTION()
-    void ElegirNuevaDireccion();
 public:
 	AEnemigo();
 
@@ -27,6 +23,11 @@ public:
     UPROPERTY(EditAnywhere, Category = "Movimiento")
     float MoveSpeed = 0.3f;
     
+    UPROPERTY(EditAnywhere, Category = "Movimiento")
+    FVector DireccionActual;
+
+    UFUNCTION()
+    void ElegirNuevaDireccion();
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

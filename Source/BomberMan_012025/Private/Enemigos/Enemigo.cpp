@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Enemigo.h"
+#include "Enemigos/Enemigo.h"
 #include "AIController.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -47,17 +47,17 @@ void AEnemigo::Tick(float DeltaTime)
 
     
     //Dibujar una línea en la dirección actual(debug)
-    DrawDebugLine(GetWorld(), GetActorLocation(), GetActorLocation() + CurrentDirection * 50.0f, FColor::Red, false, 0.1f);
+    DrawDebugLine(GetWorld(), GetActorLocation(), GetActorLocation() + DireccionActual * 50.0f, FColor::Red, false, 0.1f);
     //Deteccion de paredes
-    if (!CurrentDirection.IsNearlyZero())
+    if (!DireccionActual.IsNearlyZero())
     {
-        AddMovementInput(CurrentDirection, MoveSpeed);
+        AddMovementInput(DireccionActual, MoveSpeed);
     }
 
     // Checar si hay algo adelante con un raycast
     FHitResult Hit;
     FVector Start = GetActorLocation();
-    FVector End = Start + CurrentDirection * 75.0f; // Distancia para detectar pared
+    FVector End = Start + DireccionActual * 75.0f; // Distancia para detectar pared
 
     FCollisionQueryParams Params;
     Params.AddIgnoredActor(this);
@@ -88,11 +88,11 @@ void AEnemigo::ElegirNuevaDireccion()
     Direcciones.Add(-FVector::RightVector);    // -Y
     //
     int32 Index = FMath::RandRange(0, Direcciones.Num() - 1);
-    CurrentDirection = Direcciones[Index];
+    DireccionActual = Direcciones[Index];
     // Actualizar la rotación
-    if (!CurrentDirection.IsNearlyZero())
+    if (!DireccionActual.IsNearlyZero())
     {
-        FRotator NewRotation = CurrentDirection.Rotation();
+        FRotator NewRotation = DireccionActual.Rotation();
         SetActorRotation(NewRotation);
     }
 }

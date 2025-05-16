@@ -1,16 +1,16 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "EnemigoTerrestre.h"
+#include "Enemigos/EnemigoAcuatico.h"
 
-AEnemigoTerrestre::AEnemigoTerrestre()
+AEnemigoAcuatico::AEnemigoAcuatico()
 {
     // Carga el material
-    static ConstructorHelpers::FObjectFinder<UMaterialInterface> MaterialFinder(TEXT("Material'/Game/StarterContent/Shapes/Ediciones/ColorEnemigoTerrestre.ColorEnemigoTerrestre'"));
+    static ConstructorHelpers::FObjectFinder<UMaterialInterface> MaterialFinder(TEXT("Material'/Game/StarterContent/Shapes/Ediciones/ColorEnemigoAcuatico.ColorEnemigoAcuatico'"));
     Material = MaterialFinder.Object;
 }
 
-void AEnemigoTerrestre::BeginPlay()
+void AEnemigoAcuatico::BeginPlay()
 {
     Super::BeginPlay();
 

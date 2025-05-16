@@ -1,13 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BloqueCobre.h"
+#include "Bloques/BloqueGrava.h"
 
-ABloqueCobre::ABloqueCobre()
+ABloqueGrava::ABloqueGrava()
 {
     if (MallaBloque)
     {
-        static ConstructorHelpers::FObjectFinder<UMaterial> MaterialBase(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Metal_Copper.M_Metal_Copper'"));
+        static ConstructorHelpers::FObjectFinder<UMaterial> MaterialBase(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Ground_Gravel.M_Ground_Gravel'"));
         if (MaterialBase.Succeeded())
         {
             MallaBloque->SetMaterial(0, MaterialBase.Object); // Asignar el material al slot 0
@@ -20,16 +20,16 @@ ABloqueCobre::ABloqueCobre()
 //	Super::Tick(DeltaTime);
 //}
 
-void ABloqueCobre::BeginPlay()
+void ABloqueGrava::BeginPlay()
 {
     Super::BeginPlay();
 
 }
-
-void ABloqueCobre::ActivarMovimiento_Implementation(){
+void ABloqueGrava::ActivarMovimiento_Implementation(){
     if(PuedeMoverse==false){
         PuedeMoverse=true;
     }else{
         PuedeMoverse=false;
     }
 }
+

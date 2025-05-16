@@ -1,13 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BloqueMadera.h"
+#include "Bloques/BloqueBurbuja.h"
 
-ABloqueMadera::ABloqueMadera()
+ABloqueBurbuja::ABloqueBurbuja()
 {
     if (MallaBloque)
     {
-        static ConstructorHelpers::FObjectFinder<UMaterial> MaterialBase(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Wood_Floor_Walnut_Polished.M_Wood_Floor_Walnut_Polished'"));
+        static ConstructorHelpers::FObjectFinder<UMaterial> MaterialBase(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Basic_Floor.M_Basic_Floor'"));
 
         if (MaterialBase.Succeeded())
         {
@@ -16,7 +16,7 @@ ABloqueMadera::ABloqueMadera()
     }
 }
 
-void ABloqueMadera::ActivarMovimiento_Implementation(){
+void ABloqueBurbuja::ActivarMovimiento_Implementation(){
     if(PuedeMoverse==false){
         PuedeMoverse=true;
     }else{

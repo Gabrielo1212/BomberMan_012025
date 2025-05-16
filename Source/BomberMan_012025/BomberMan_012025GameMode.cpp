@@ -4,18 +4,14 @@
 #include "BomberMan_012025Character.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Moneda.h"
-#include "Enemigo.h"
-#include "EnemigoTerrestre.h"
-#include "EnemigoAcuatico.h"
-#include "EnemigoAereo.h"
-#include "EnemigoSubterraneo.h"
 #include "Kismet/GameplayStatics.h"
 
 //Singleton
 #include "Singleton_Main.h"
 
 //Fabrica
-#include "Factory_Bloque.h"
+#include "Fabricas/FabricaDeBloques.h"
+#include "Fabricas/FabricaDeEnemigos.h"
 
 ABomberMan_012025GameMode::ABomberMan_012025GameMode()
 {
@@ -34,7 +30,8 @@ void ABomberMan_012025GameMode::BeginPlay()
     //Singleton
     GetWorld()->SpawnActor<ASingleton_Main>(ASingleton_Main::StaticClass());
     //Fabrica
-    MiFabricaDeBloques = GetWorld()->SpawnActor<AFactory_Bloque>(AFactory_Bloque::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
+    MiFabricaDeBloques = GetWorld()->SpawnActor<AFabricaDeBloques>(AFabricaDeBloques::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
+    MiFabricaDeEnemigos = GetWorld()->SpawnActor<AFabricaDeEnemigos>(AFabricaDeEnemigos::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
     
     if (!MiFabricaDeBloques)
     {
@@ -57,8 +54,6 @@ void ABomberMan_012025GameMode::BeginPlay()
         }
     }
     
-    //Declarar el array para las maderas del borde
-    TArray<ABloqueMadera*> MaderasBorde;
     // Posicionar al jugador sobre un bloque de madera cercano al borde
     
     for (ABloque* Bloque : aBloques)
@@ -93,8 +88,7 @@ void ABomberMan_012025GameMode::BeginPlay()
 }
 
 // Funcion para generar un bloque
-void ABomberMan_012025GameMode::SpawnBloque(FVector posicionBloque, int32 tipoBloque)
-{
+void ABomberMan_012025GameMode::SpawnBloque(FVector posicionBloque, int32 tipoBloque){
     ABloque* BloqueGenerado = nullptr;
     AEnemigo* EnemigoGenerado = nullptr;
     AMoneda* MonedaGenerada = nullptr;
@@ -103,31 +97,17 @@ void ABomberMan_012025GameMode::SpawnBloque(FVector posicionBloque, int32 tipoBl
         BloqueGenerado=MiFabricaDeBloques->CrearBloquePorNumero(tipoBloque, posicionBloque);
     }
     else if(tipoBloque == 0){
+        PosicionesVacias.Add(posicionBloque);
         float probabilidad = FMath::RandRange(0.0f, 1.0f);
         if (probabilidad < 0.1f) // 10% de probabilidad de spawnear
         {
-            float probabilidad2 = FMath::RandRange(0.0f, 1.0f);
-            PosicionesVacias.Add(posicionBloque);
-            if (probabilidad2 < 0.25f){
-                EnemigoGenerado = GetWorld()->SpawnActor<AEnemigoAereo>(AEnemigoAereo::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
-                PosicionesVacias.Add(posicionBloque);
-            }else if (probabilidad2 < 0.5f){
-                EnemigoGenerado = GetWorld()->SpawnActor<AEnemigoTerrestre>(AEnemigoTerrestre::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
-                PosicionesVacias.Add(posicionBloque);
-            }else if (probabilidad2 < 0.75f){
-                EnemigoGenerado = GetWorld()->SpawnActor<AEnemigoAcuatico>(AEnemigoAcuatico::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
-                PosicionesVacias.Add(posicionBloque);
-            }else{
-                EnemigoGenerado = GetWorld()->SpawnActor<AEnemigoSubterraneo>(AEnemigoSubterraneo::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
-                PosicionesVacias.Add(posicionBloque);
-            }
+            EnemigoGenerado=MiFabricaDeEnemigos->CrearEnemigoProbabilidad(posicionBloque, 100.0f, FRotator(0.0f, 0.0f, 0.0f));
         }else if(probabilidad > 0.11f && probabilidad < 0.12f){
             MonedaGenerada = GetWorld()->SpawnActor<AMoneda>(AMoneda::StaticClass(), posicionBloque + FVector(0.0f,0.0f,100.0f), FRotator(0.0f, 0.0f, 0.0f));
         }else{
             PosicionesVacias.Add(posicionBloque);
         }
     }
-
     // Agregar el bloque al TArray si fue generado
     if (BloqueGenerado!=nullptr)
     {

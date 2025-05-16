@@ -6,9 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "Bloque.generated.h"
 
-class UStaticMeshComponent;
 
-UCLASS(Abstract)
+UCLASS(Abstract,Blueprintable)
 class BOMBERMAN_012025_API ABloque : public AActor
 {
     GENERATED_BODY()

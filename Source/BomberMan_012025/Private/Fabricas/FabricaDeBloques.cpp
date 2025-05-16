@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Factory_Bloque.h"
+#include "Fabricas/FabricaDeBloques.h"
 #include "Engine/World.h"
 
 // Sets default values
-AFactory_Bloque::AFactory_Bloque()
+AFabricaDeBloques::AFabricaDeBloques()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -13,41 +13,41 @@ AFactory_Bloque::AFactory_Bloque()
 }
 
 // Called when the game starts or when spawned
-void AFactory_Bloque::BeginPlay()
+void AFabricaDeBloques::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
 // Called every frame
-void AFactory_Bloque::Tick(float DeltaTime)
+void AFabricaDeBloques::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
 }
 
-ABloque* AFactory_Bloque::CrearBloque_Implementation(TSubclassOf<ABloque> ClaseDeBloques, FVector Posicion, FRotator Rotacion)
+ABloque* AFabricaDeBloques::CrearBloque_Implementation(TSubclassOf<ABloque> ClaseDeBloques, FVector Posicion, FRotator Rotacion)
 {
     // Validar que se nos ha pasado una clase válida y que tenemos acceso al mundo
     if (!ClaseDeBloques || !GetWorld())
     {
-        GEngine->AddOnScreenDebugMessage(1, 15.0f, FColor::Yellow,FString::Printf(TEXT("ABloqueFactory::CrearBloque - Clase de Bloque no válida o World nulo.")));
+        GEngine->AddOnScreenDebugMessage(1, 15.0f, FColor::Yellow,FString::Printf(TEXT("AFabricaDeBloques::CrearBloque - Clase de Bloque no válida o World nulo.")));
         return nullptr; // Retorna nulo si no se puede crear
     }
         
         // **** Aquí es donde ocurre la creación del objeto usando el tipo pasado ****
         // Utilizamos SpawnActor para crear un Actor en el mundo de Unreal Engine
-    ABloque* NuevoBloque = GetWorld()->SpawnActor<ABloque>(ClaseDeBloques, Posicion, Rotacion);
+    ABloque* NuevoBloque = GetWorld()->SpawnActor<ABloque>(ClaseDeBloques, Posicion, Rotacion, FActorSpawnParameters());
     
     if (!NuevoBloque)
     {
-        GEngine->AddOnScreenDebugMessage(1, 15.0f, FColor::Yellow,FString::Printf(TEXT("ABloqueFactory::CrearBloque - Fallo al crear la instancia del bloque.")));
+        GEngine->AddOnScreenDebugMessage(1, 15.0f, FColor::Yellow,FString::Printf(TEXT("AFabricaDeBloques::CrearBloque - Fallo al crear la instancia del bloque.")));
     }
 
     return NuevoBloque; // Retorna el puntero al nuevo bloque (como el tipo base ABloque)
 }
 
-ABloque* AFactory_Bloque::CrearBloquePorNumero_Implementation(int tipoBloque, FVector Posicion, FRotator Rotacion)
+ABloque* AFabricaDeBloques::CrearBloquePorNumero_Implementation(int tipoBloque, FVector Posicion, FRotator Rotacion)
 {
     TSubclassOf<ABloque> ClaseAInstanciar = nullptr;
 
