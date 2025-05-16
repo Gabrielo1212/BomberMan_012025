@@ -14,4 +14,6 @@ class BOMBERMAN_012025_API ABloqueConcreto : public ABloque
 {
 	GENERATED_BODY()
 	
+public:
+    void ActivarMovimiento_Implementation();
 };

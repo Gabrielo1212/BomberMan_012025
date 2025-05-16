@@ -10,6 +10,7 @@
 class ABloque;
 class AEnemigo;
 class AMoneda;
+class AFactory_Bloque;
 
 UCLASS(minimalapi)
 class ABomberMan_012025GameMode : public AGameModeBase
@@ -37,6 +38,13 @@ public:
     TArray<FVector> PosicionesVacias;
     //Declarar un array de Monedas
     TArray<AMoneda*> aMonedas;
+    
+    //Declarar un puntero a la clase de la fabrica
+    AFactory_Bloque* MiFabricaDeBloques;
+    //Declarar clase de Fabrica
+//    TSubclassOf<AFactory_Bloque> ClaseDeFabricaDeBloques;
+    //Poner la Fabrica de Bloques
+//    ClaseDeFabricaDeBloques = AFactory_Bloque::StaticClass();
 
     
     //Declarar las funciones

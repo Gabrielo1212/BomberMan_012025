@@ -25,3 +25,11 @@ void ABloqueOro::BeginPlay()
     Super::BeginPlay();
 
 }
+
+void ABloqueOro::ActivarMovimiento_Implementation(){
+    if(PuedeMoverse==false){
+        PuedeMoverse=true;
+    }else{
+        PuedeMoverse=false;
+    }
+}

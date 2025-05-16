@@ -25,3 +25,12 @@ void ABloqueArena::BeginPlay()
     Super::BeginPlay();
 
 }
+
+void ABloqueArena::ActivarMovimiento_Implementation(){
+    if(PuedeMoverse==false){
+        PuedeMoverse=true;
+    }else{
+        PuedeMoverse=false;
+    }
+}
+

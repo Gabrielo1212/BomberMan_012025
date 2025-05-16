@@ -29,3 +29,11 @@ void ABloqueLadrillo::BeginPlay()
 	Super::BeginPlay();
 
 }
+void ABloqueLadrillo::ActivarMovimiento_Implementation(){
+    if(PuedeMoverse==false){
+        PuedeMoverse=true;
+    }else{
+        PuedeMoverse=false;
+    }
+}
+

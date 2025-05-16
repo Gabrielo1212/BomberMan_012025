@@ -25,3 +25,11 @@ void ABloqueGrava::BeginPlay()
     Super::BeginPlay();
 
 }
+void ABloqueGrava::ActivarMovimiento_Implementation(){
+    if(PuedeMoverse==false){
+        PuedeMoverse=true;
+    }else{
+        PuedeMoverse=false;
+    }
+}
+

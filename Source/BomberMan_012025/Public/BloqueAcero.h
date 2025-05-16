@@ -16,6 +16,9 @@ class BOMBERMAN_012025_API ABloqueAcero : public ABloque
 public:
 	ABloqueAcero();
 	//virtual void Tick(float DeltaTime) override;
+    
+    void ActivarMovimiento_Implementation();
+    
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

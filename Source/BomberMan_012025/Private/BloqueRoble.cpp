@@ -25,3 +25,11 @@ void ABloqueRoble::BeginPlay()
     Super::BeginPlay();
 
 }
+
+void ABloqueRoble::ActivarMovimiento_Implementation(){
+    if(PuedeMoverse==false){
+        PuedeMoverse=true;
+    }else{
+        PuedeMoverse=false;
+    }
+}

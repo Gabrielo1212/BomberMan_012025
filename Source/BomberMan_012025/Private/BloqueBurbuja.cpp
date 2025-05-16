@@ -15,3 +15,11 @@ ABloqueBurbuja::ABloqueBurbuja()
         }
     }
 }
+
+void ABloqueBurbuja::ActivarMovimiento_Implementation(){
+    if(PuedeMoverse==false){
+        PuedeMoverse=true;
+    }else{
+        PuedeMoverse=false;
+    }
+}

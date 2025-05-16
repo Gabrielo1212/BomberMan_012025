@@ -8,7 +8,7 @@
 
 class UStaticMeshComponent;
 
-UCLASS()
+UCLASS(Abstract)
 class BOMBERMAN_012025_API ABloque : public AActor
 {
     GENERATED_BODY()
@@ -21,8 +21,11 @@ public:
     FVector PosicionInicial;
 
     // Control de movimiento
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movimiento")
     float Velocidad;              // Velocidad de movimiento
-    bool PuedeMoverse;            // ÀDebe moverse?
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movimiento")
+    bool PuedeMoverse;      // ÀDebe moverse?
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movimiento")
     float RangoMax;                // Rango de movimiento
 
     // Direcciones para alternar cuando llegue a los extremos
@@ -34,6 +37,9 @@ public:
     // Componente de malla estatica
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Componentes")
         UStaticMeshComponent* MallaBloque;
+    
+    UFUNCTION(BlueprintNativeEvent, Category="Movimiento")
+        void ActivarMovimiento();
 
 protected:
     // Called when the game starts or when spawned

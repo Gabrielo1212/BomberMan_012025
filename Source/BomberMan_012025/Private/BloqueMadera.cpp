@@ -15,3 +15,11 @@ ABloqueMadera::ABloqueMadera()
         }
     }
 }
+
+void ABloqueMadera::ActivarMovimiento_Implementation(){
+    if(PuedeMoverse==false){
+        PuedeMoverse=true;
+    }else{
+        PuedeMoverse=false;
+    }
+}

@@ -74,3 +74,5 @@ void ABloque::Tick(float DeltaTime)
         SetActorLocation(Pos);
     }
 }
+
+void ABloque::ActivarMovimiento_Implementation(){}

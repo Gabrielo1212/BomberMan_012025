@@ -16,6 +16,7 @@ class BOMBERMAN_012025_API ABloqueOro : public ABloque
 
 public:
 	ABloqueOro();
+    void ActivarMovimiento_Implementation();
 
 	//virtual void Tick(float DeltaTime) override;
 

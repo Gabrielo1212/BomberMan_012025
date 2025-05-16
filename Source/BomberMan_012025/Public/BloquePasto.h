@@ -16,6 +16,7 @@ class BOMBERMAN_012025_API ABloquePasto : public ABloque
 	
 public:
 	ABloquePasto();
+    void ActivarMovimiento_Implementation();
 
 	//virtual void Tick(float DeltaTime) override;
 

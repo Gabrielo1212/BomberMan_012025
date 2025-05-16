@@ -25,3 +25,11 @@ void ABloquePasto::BeginPlay()
     Super::BeginPlay();
 
 }
+void ABloquePasto::ActivarMovimiento_Implementation(){
+    if(PuedeMoverse==false){
+        PuedeMoverse=true;
+    }else{
+        PuedeMoverse=false;
+    }
+}
+

@@ -25,3 +25,11 @@ void ABloqueCobre::BeginPlay()
     Super::BeginPlay();
 
 }
+
+void ABloqueCobre::ActivarMovimiento_Implementation(){
+    if(PuedeMoverse==false){
+        PuedeMoverse=true;
+    }else{
+        PuedeMoverse=false;
+    }
+}

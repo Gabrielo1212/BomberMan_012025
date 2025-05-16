@@ -16,6 +16,5 @@ class BOMBERMAN_012025_API ABloqueMadera : public ABloque
 	
 public:
 	ABloqueMadera();
-    
-    int BloqueAlLado=0;
+    void ActivarMovimiento_Implementation();
 };

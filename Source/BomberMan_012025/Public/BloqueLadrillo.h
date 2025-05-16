@@ -15,7 +15,7 @@ class BOMBERMAN_012025_API ABloqueLadrillo : public ABloque
 	GENERATED_BODY()
 public:
 	ABloqueLadrillo();
-
+    void ActivarMovimiento_Implementation();
 	//virtual void Tick(float DeltaTime) override;
 	
 protected:

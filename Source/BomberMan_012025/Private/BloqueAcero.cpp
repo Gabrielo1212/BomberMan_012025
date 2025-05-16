@@ -18,4 +18,13 @@ ABloqueAcero::ABloqueAcero()
 
 void ABloqueAcero::BeginPlay()
 {
+    Super::BeginPlay();
+}
+
+void ABloqueAcero::ActivarMovimiento_Implementation(){
+    if(PuedeMoverse==false){
+        PuedeMoverse=true;
+    }else{
+        PuedeMoverse=false;
+    }
 }

@@ -4,24 +4,18 @@
 #include "BomberMan_012025Character.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Moneda.h"
-#include "Bloque.h"
-#include "BloqueBurbuja.h"
-#include "BloqueAcero.h"
-#include "BloqueConcreto.h"
-#include "BloqueLadrillo.h"
-#include "BloqueMadera.h"
-#include "BloquePasto.h"
-#include "BloqueArena.h"
-#include "BloqueGrava.h"
-#include "BloqueCobre.h"
-#include "BloqueRoble.h"
-#include "BloqueOro.h"
 #include "Enemigo.h"
 #include "EnemigoTerrestre.h"
 #include "EnemigoAcuatico.h"
 #include "EnemigoAereo.h"
 #include "EnemigoSubterraneo.h"
 #include "Kismet/GameplayStatics.h"
+
+//Singleton
+#include "Singleton_Main.h"
+
+//Fabrica
+#include "Factory_Bloque.h"
 
 ABomberMan_012025GameMode::ABomberMan_012025GameMode()
 {
@@ -37,8 +31,18 @@ void ABomberMan_012025GameMode::BeginPlay()
 {
     Super::BeginPlay();
 
-    // Recorremos la matriz para generar los bloques
+    //Singleton
+    GetWorld()->SpawnActor<ASingleton_Main>(ASingleton_Main::StaticClass());
+    //Fabrica
+    MiFabricaDeBloques = GetWorld()->SpawnActor<AFactory_Bloque>(AFactory_Bloque::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
     
+    if (!MiFabricaDeBloques)
+    {
+        UE_LOG(LogTemp, Error, TEXT("¡ERROR CRÍTICO: No se pudo crear la instancia de la Fábrica de Bloques! Asegúrate de que 'ClaseDeFabricaDeBloques' esté asignada en el GameMode."));
+        // Considera detener el juego o manejar este error de forma adecuada.
+    }
+    
+    // Recorremos la matriz para generar los bloques
     for (int32 fila = 0; fila < aMapaBloques.Num(); ++fila)
     {
         for (int32 columna = 0; columna < aMapaBloques[fila].Num(); ++columna)
@@ -69,19 +73,6 @@ void ABomberMan_012025GameMode::BeginPlay()
             {
                 MaderasBorde.Add(Madera);
             }
-            /*
-            //Verificar cuantos bloques tiene al lado
-            for(ABloqueMadera* BloqueMadera :MaderasBorde){
-                FVector Posicion = BloqueMadera->GetActorLocation();
-                for(int i = -1; i < 2; i++){
-                    for(int j = -1; j < 2; j++){
-                        if(Posicion+FVector()==Pos){
-                            
-                        }
-                    }
-                }
-            }
-             */
         }
     }
     
@@ -107,50 +98,11 @@ void ABomberMan_012025GameMode::SpawnBloque(FVector posicionBloque, int32 tipoBl
     ABloque* BloqueGenerado = nullptr;
     AEnemigo* EnemigoGenerado = nullptr;
     AMoneda* MonedaGenerada = nullptr;
-
-    // Elegir tipo de bloque basado en el valor
-    if (tipoBloque == 10)
-    {
-        BloqueGenerado = GetWorld()->SpawnActor<ABloqueOro>(ABloqueOro::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
+    
+    if(tipoBloque >= 1 && tipoBloque <= 10){
+        BloqueGenerado=MiFabricaDeBloques->CrearBloquePorNumero(tipoBloque, posicionBloque);
     }
-    else if (tipoBloque == 9)
-    {
-        BloqueGenerado = GetWorld()->SpawnActor<ABloqueRoble>(ABloqueRoble::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
-    }
-    else if (tipoBloque == 8)
-    {
-        BloqueGenerado = GetWorld()->SpawnActor<ABloqueCobre>(ABloqueCobre::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
-    }
-    else if (tipoBloque == 7)
-    {
-        BloqueGenerado = GetWorld()->SpawnActor<ABloqueGrava>(ABloqueGrava::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
-    }
-    else if (tipoBloque == 6)
-    {
-        BloqueGenerado = GetWorld()->SpawnActor<ABloqueArena>(ABloqueArena::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
-    }
-    else if (tipoBloque == 5)
-    {
-        BloqueGenerado = GetWorld()->SpawnActor<ABloquePasto>(ABloquePasto::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
-    }
-    else if (tipoBloque == 4)
-    {
-        BloqueGenerado = GetWorld()->SpawnActor<ABloqueAcero>(ABloqueAcero::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
-    }
-    else if (tipoBloque == 3)
-    {
-        BloqueGenerado = GetWorld()->SpawnActor<ABloqueConcreto>(ABloqueConcreto::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
-    }
-    else if (tipoBloque == 2)
-    {
-        BloqueGenerado = GetWorld()->SpawnActor<ABloqueLadrillo>(ABloqueLadrillo::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
-    }
-    else if (tipoBloque == 1)
-    {
-        BloqueGenerado = GetWorld()->SpawnActor<ABloqueMadera>(ABloqueMadera::StaticClass(), posicionBloque, FRotator(0.0f, 0.0f, 0.0f));
-    }
-    else if (tipoBloque == 0)
-    {
+    else if(tipoBloque == 0){
         float probabilidad = FMath::RandRange(0.0f, 1.0f);
         if (probabilidad < 0.1f) // 10% de probabilidad de spawnear
         {
@@ -177,7 +129,7 @@ void ABomberMan_012025GameMode::SpawnBloque(FVector posicionBloque, int32 tipoBl
     }
 
     // Agregar el bloque al TArray si fue generado
-    if (BloqueGenerado)
+    if (BloqueGenerado!=nullptr)
     {
         // Ajustar la escala
         FVector EscalaActual = BloqueGenerado->GetActorScale3D();
@@ -187,7 +139,7 @@ void ABomberMan_012025GameMode::SpawnBloque(FVector posicionBloque, int32 tipoBl
         // Agregar el bloque al array aBloques
         aBloques.Add(BloqueGenerado);
     }
-    if(EnemigoGenerado)
+    if(EnemigoGenerado!=nullptr)
     {
         aEnemigos.Add(EnemigoGenerado);
     }

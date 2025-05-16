@@ -18,6 +18,9 @@ public:
 	ABloqueArena();
 
 	//virtual void Tick(float DeltaTime) override;
+    void ActivarMovimiento_Implementation();
+
+
 
 protected:
 
